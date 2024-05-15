@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF"/> <!-- Culoare de fundal -->
+            <corners android:radius="8dp"/> <!-- Rotunjirea colțurilor -->
+            <stroke
+            android:color="#CCCCCC"/>   <!-- Culoarea liniei de contur -->
+            <padding
+                android:left="16dp"
+                android:right="16dp"
+                android:top="12dp"
+                android:bottom="12dp"/>    <!-- Padding pentru text -->
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "609208098824",
+    "project_id": "smartnutrition-f43ab",
+    "storage_bucket": "smartnutrition-f43ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609208098824:android:8638152582f0acb13b31bd",
+        "android_client_info": {
+          "package_name": "com.example.smartnutrtion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk5iTr0wP9lLw5_xwWeCVpnzZXFOEbhBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
