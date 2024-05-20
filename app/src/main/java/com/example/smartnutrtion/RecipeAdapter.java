@@ -1,5 +1,7 @@
 package com.example.smartnutrtion;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +12,15 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import java.util.Locale;
 
-
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
-
     private List<Recipe> recipes;
+    private Context context;
 
-    public RecipeAdapter(List<Recipe> recipes) {
+    public RecipeAdapter(){
+
+    }
+    public RecipeAdapter(Context context, List<Recipe> recipes) {
+        this.context = context;
         this.recipes = recipes;
     }
 
@@ -31,6 +36,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.nameTextView.setText(recipe.getName());
         holder.caloriesTextView.setText(String.format(Locale.getDefault(), "%.2f Kcal", recipe.getCalories()));
         Picasso.get().load(recipe.getImageUrl()).into(holder.imageView);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, RecipeDetailActivity.class);
+                intent.putExtra("recipe", recipe);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -51,4 +65,3 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         }
     }
 }
-

@@ -28,7 +28,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recipesRecyclerView);
         recipeList = new ArrayList<>();
-        recipeAdapter = new RecipeAdapter(recipeList);
+        recipeAdapter = new RecipeAdapter(this,recipeList);
         recyclerView.setAdapter(recipeAdapter);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();

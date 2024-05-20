@@ -27,10 +27,8 @@ public class Login extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        // Setup the UI
         emailEditText = findViewById(R.id.email);
         passwordEditText = findViewById(R.id.password);
         loginButton = findViewById(R.id.login);
@@ -43,7 +41,6 @@ public class Login extends Activity {
         });
 
         signUpButton.setOnClickListener(view -> {
-            // Crează o intenție pentru a deschide RegisterActivity
             Intent intent = new Intent(Login.this, RegisterActivity.class);
             startActivity(intent);
         });
@@ -54,11 +51,9 @@ public class Login extends Activity {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
                         updateUI(user);
                     } else {
-                        // If sign in fails, display a message to the user.
                         Toast.makeText(Login.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
                         updateUI(null);
@@ -70,11 +65,9 @@ public class Login extends Activity {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
                         updateUI(user);
                     } else {
-                        // If sign in fails, display a message to the user.
                         Toast.makeText(Login.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
                         updateUI(null);
@@ -84,12 +77,10 @@ public class Login extends Activity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            // Navigate to HomePage Activity
             Intent intent = new Intent(Login.this, HomePageActivity.class);
             startActivity(intent);
-            finish();  // Încheie activitatea de login pentru a preveni revenirea la aceasta cu butonul de back
+            finish();
         } else {
-            // User is signed out
             Toast.makeText(Login.this, "Login failed or user not signed in.", Toast.LENGTH_SHORT).show();
         }
     }

@@ -22,10 +22,9 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Initialize Firebase Auth
+
         mAuth = FirebaseAuth.getInstance();
 
-        // Setup the UI
         emailEditText = findViewById(R.id.email_register);
         passwordEditText = findViewById(R.id.password_register);
         registerButton = findViewById(R.id.register_button);
