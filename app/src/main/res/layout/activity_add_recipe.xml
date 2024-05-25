@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/editTextRecipeName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Numele rețetei"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextIngredients"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Ingrediente (separate prin virgulă)"
+            app:layout_constraintTop_toBottomOf="@id/editTextRecipeName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editTextImageUrl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="URL imagine"
+            app:layout_constraintTop_toBottomOf="@id/editTextIngredients"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editTextCalories"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Calorii per 100g"
+            app:layout_constraintTop_toBottomOf="@id/editTextImageUrl"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editTextFats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Grăsimi totale (g)"
+            app:layout_constraintTop_toBottomOf="@id/editTextCalories"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editTextSaturatedFats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Grăsimi saturate (g)"
+            app:layout_constraintTop_toBottomOf="@id/editTextFats"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editTextUnsaturatedFats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Grăsimi nesaturate (g)"
+            app:layout_constraintTop_toBottomOf="@id/editTextSaturatedFats"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editTextCarbohydrates"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Carbohidrați (g)"
+            app:layout_constraintTop_toBottomOf="@id/editTextUnsaturatedFats"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editTextProtein"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Proteine (g)"
+            app:layout_constraintTop_toBottomOf="@id/editTextCarbohydrates"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editTextFiber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Fibre (g)"
+            app:layout_constraintTop_toBottomOf="@id/editTextProtein"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editTextSugar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Zahăr (g)"
+            app:layout_constraintTop_toBottomOf="@id/editTextFiber"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editTextSalt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Sare (g)"
+            app:layout_constraintTop_toBottomOf="@id/editTextSugar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Salvează"
+            app:layout_constraintTop_toBottomOf="@id/editTextSalt"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

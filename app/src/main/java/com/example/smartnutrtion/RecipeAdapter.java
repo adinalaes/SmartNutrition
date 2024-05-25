@@ -35,8 +35,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         Recipe recipe = recipes.get(position);
         holder.nameTextView.setText(recipe.getName());
         holder.caloriesTextView.setText(String.format(Locale.getDefault(), "%.2f Kcal", recipe.getCalories()));
-        Picasso.get().load(recipe.getImageUrl()).into(holder.imageView);
 
+        String imageUrl = recipe.getImageUrl();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Picasso.get().load(imageUrl).into(holder.imageView);
+        } else {
+            holder.imageView.setImageResource(R.drawable.default_image);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

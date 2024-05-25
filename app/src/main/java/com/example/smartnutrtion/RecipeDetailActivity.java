@@ -60,7 +60,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Încheie activitatea curentă și revine la activitatea anterioară
                 finish();
             }
         });

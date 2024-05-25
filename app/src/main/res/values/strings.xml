@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">SmartNutrtion</string>
+    <string name="profile_icon">Iconița profil</string>
+    <string name="user_name">Nume Utilizator</string>
+    <string name="profile">Profile</string>
+
+    <string-array name="user_goals">
+        <item>Scădere în greutate</item>
+        <item>Menținere în greutate</item>
+        <item>Creștere în greutate</item>
+    </string-array>
 </resources>
