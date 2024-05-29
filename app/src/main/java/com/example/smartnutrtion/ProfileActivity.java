@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,6 +63,7 @@ public class ProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
+        // Setup Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.user_goals, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -83,9 +83,9 @@ public class ProfileActivity extends AppCompatActivity {
     private void loadUserProfile() {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-
+                    // Load user data if it exists
                     String name = dataSnapshot.child("name").getValue(String.class);
                     Long age = dataSnapshot.child("age").getValue(Long.class);
                     Long weight = dataSnapshot.child("weight").getValue(Long.class);
@@ -102,19 +102,23 @@ public class ProfileActivity extends AppCompatActivity {
                         editUserGoal.setSelection(position);
                     }
 
-                    if (age != null && weight != null && height != null) {
+                    if (age != null && weight != null && height != null && !age.equals(0L) && !weight.equals(0L) && !height.equals(0L)) {
                         userReportMessage.setVisibility(View.GONE);
                         calculateAndDisplayUserReport(age, weight, height);
                     } else {
                         userReportMessage.setVisibility(View.VISIBLE);
+                        userBMI.setVisibility(View.GONE);
+                        userCalories.setVisibility(View.GONE);
                     }
                 } else {
                     userReportMessage.setVisibility(View.VISIBLE);
+                    userBMI.setVisibility(View.GONE);
+                    userCalories.setVisibility(View.GONE);
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(ProfileActivity.this, "Failed to load user data", Toast.LENGTH_SHORT).show();
             }
         });
@@ -146,7 +150,14 @@ public class ProfileActivity extends AppCompatActivity {
         databaseReference.setValue(userProfile).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(ProfileActivity.this, "Profile saved", Toast.LENGTH_SHORT).show();
-                calculateAndDisplayUserReport(age, weight, height);
+                if (!age.equals(0L) && !weight.equals(0L) && !height.equals(0L)) {
+                    userReportMessage.setVisibility(View.GONE);
+                    calculateAndDisplayUserReport(age, weight, height);
+                } else {
+                    userReportMessage.setVisibility(View.VISIBLE);
+                    userBMI.setVisibility(View.GONE);
+                    userCalories.setVisibility(View.GONE);
+                }
             } else {
                 Toast.makeText(ProfileActivity.this, "Failed to save profile", Toast.LENGTH_SHORT).show();
             }
@@ -162,7 +173,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         userBMI.setVisibility(View.VISIBLE);
         userCalories.setVisibility(View.VISIBLE);
-        userReportMessage.setVisibility(View.GONE);
     }
 
     private int calculateDailyCalories(Long age, Long weight, Long height) {

@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.picasso.Picasso;
@@ -23,6 +23,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         ImageView recipeImage = findViewById(R.id.recipeImage);
         TextView recipeName = findViewById(R.id.recipeName);
         TextView ingredientsList = findViewById(R.id.ingredientsList);
+        TextView descriptionText = findViewById(R.id.descriptionText);
         TextView caloriesLabel = findViewById(R.id.caloriesLabel);
         TextView caloriesValueHeader = findViewById(R.id.caloriesValueHeader);
         TextView carbsValue = findViewById(R.id.carbsValue);
@@ -56,6 +57,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         unsaturatedFatsValue.setText(String.format(Locale.getDefault(), "%.2f g", recipe.getNutritionalValues().get("unsaturatedFats")));
         sugarValue.setText(String.format(Locale.getDefault(), "%.2f g", recipe.getNutritionalValues().get("sugar")));
         saltValue.setText(String.format(Locale.getDefault(), "%.2f g", recipe.getNutritionalValues().get("salt")));
+        descriptionText.setText(recipe.getDescription());
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,8 +66,4 @@ public class RecipeDetailActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
 }

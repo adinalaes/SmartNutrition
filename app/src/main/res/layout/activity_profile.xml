@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ProfileActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/white">
 
         <Button
             android:id="@+id/backToHomeButton"
@@ -18,7 +20,7 @@
             android:text="Înapoi"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_margin="16dp"/>
+            android:layout_marginTop="16dp" />
 
         <Button
             android:id="@+id/logoutButton"
@@ -27,7 +29,7 @@
             android:text="Logout"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="16dp"/>
+            android:layout_marginTop="16dp" />
 
         <ImageView
             android:id="@+id/profileImage"
@@ -37,23 +39,24 @@
             app:layout_constraintTop_toBottomOf="@id/backToHomeButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="Profile Image" />
+            android:contentDescription="Profile Image"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="16dp" />
 
         <TextView
             android:id="@+id/userNameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nume Utilizator"
-            android:textSize="16sp"
-            android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@id/profileImage"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_marginTop="8dp" />
 
         <EditText
             android:id="@+id/editUserName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:hint="Nume Utilizator"
             android:textSize="18sp"
             app:layout_constraintTop_toBottomOf="@id/userNameLabel"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,16 +67,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Vârstă"
-            android:textSize="16sp"
-            android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@id/editUserName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_marginTop="8dp" />
 
         <EditText
             android:id="@+id/editUserAge"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:hint="Vârstă"
             android:inputType="number"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/userAgeLabel"
@@ -84,17 +86,16 @@
             android:id="@+id/userWeightLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Greutate(kg)"
-            android:textSize="16sp"
-            android:layout_marginTop="8dp"
+            android:text="Greutate"
             app:layout_constraintTop_toBottomOf="@id/editUserAge"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_marginTop="8dp" />
 
         <EditText
             android:id="@+id/editUserWeight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:hint="Greutate"
             android:inputType="number"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/userWeightLabel"
@@ -105,17 +106,16 @@
             android:id="@+id/userHeightLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Înălțime(cm)"
-            android:textSize="16sp"
-            android:layout_marginTop="8dp"
+            android:text="Înălțime"
             app:layout_constraintTop_toBottomOf="@id/editUserWeight"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_marginTop="8dp" />
 
         <EditText
             android:id="@+id/editUserHeight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:hint="Înălțime"
             android:inputType="number"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/userHeightLabel"
@@ -127,11 +127,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Obiectiv"
-            android:textSize="16sp"
-            android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@id/editUserHeight"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_marginTop="8dp" />
 
         <Spinner
             android:id="@+id/editUserGoal"
@@ -139,44 +137,45 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/userGoalLabel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
 
         <TextView
             android:id="@+id/userReportMessage"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Completati datele profilului pentru a obtine un raport al utilizatorului"
-            android:textColor="@android:color/holo_red_dark"
-            android:layout_marginTop="8dp"
+            android:textColor="@android:color/holo_red_light"
             app:layout_constraintTop_toBottomOf="@id/editUserGoal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/userBMI"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="BMI: --"
-            android:layout_marginTop="8dp"
+            android:text="BMI: "
             app:layout_constraintTop_toBottomOf="@id/userReportMessage"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/userCalories"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Calorii necesare pe zi: --"
-            android:layout_marginTop="8dp"
+            android:text="Calorii necesare pe zi: "
             app:layout_constraintTop_toBottomOf="@id/userBMI"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/saveProfileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Salvează Profil"
+            android:text="SALVEAZĂ PROFIL"
             app:layout_constraintTop_toBottomOf="@id/userCalories"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

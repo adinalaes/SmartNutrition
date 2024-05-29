@@ -12,6 +12,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegisterActivity extends Activity {
 
     private EditText emailEditText;
@@ -43,45 +46,37 @@ public class RegisterActivity extends Activity {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
+                        // User registration successful, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
-                            saveUserData(user);
+                            String uid = user.getUid();
+                            createUserProfile(uid, email);
                         }
                         Toast.makeText(RegisterActivity.this, "Registration successful.",
                                 Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(this, Login.class));
                         finish();
                     } else {
+                        // If sign in fails, display a message to the user.
                         Toast.makeText(RegisterActivity.this, "Registration failed.",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private void saveUserData(FirebaseUser user) {
-        String uid = user.getUid();
-        String email = user.getEmail();
-
-        User userProfile = new User(email);
+    private void createUserProfile(String uid, String email) {
+        Map<String, Object> userProfile = new HashMap<>();
+        userProfile.put("email", email);
+        userProfile.put("name", "");
+        userProfile.put("age", 0);
+        userProfile.put("weight", 0);
+        userProfile.put("height", 0);
+        userProfile.put("goal", "");
 
         databaseReference.child(uid).setValue(userProfile).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(RegisterActivity.this, "User data saved.", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(RegisterActivity.this, "Failed to save user data.", Toast.LENGTH_SHORT).show();
+            if (!task.isSuccessful()) {
+                Toast.makeText(RegisterActivity.this, "Failed to create user profile.", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    public static class User {
-        public String email;
-
-        public User() {
-
-        }
-
-        public User(String email) {
-            this.email = email;
-        }
     }
 }

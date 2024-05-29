@@ -19,8 +19,8 @@ import java.util.Map;
 
 public class AddRecipeActivity extends AppCompatActivity {
 
-    private EditText editTextRecipeName, editTextIngredients, editTextImageUrl, editTextCalories, editTextFats, editTextSaturatedFats, editTextUnsaturatedFats, editTextCarbohydrates, editTextProtein, editTextFiber, editTextSugar, editTextSalt;
-    private Button buttonSave;
+    private EditText editTextRecipeName, editTextIngredients, editTextImageUrl, editTextCalories, editTextFats, editTextSaturatedFats, editTextUnsaturatedFats, editTextCarbohydrates, editTextProtein, editTextFiber, editTextSugar, editTextSalt, editTextDescription;
+    private Button buttonSave, buttonBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +39,22 @@ public class AddRecipeActivity extends AppCompatActivity {
         editTextFiber = findViewById(R.id.editTextFiber);
         editTextSugar = findViewById(R.id.editTextSugar);
         editTextSalt = findViewById(R.id.editTextSalt);
+        editTextDescription = findViewById(R.id.editTextDescription);
         buttonSave = findViewById(R.id.buttonSave);
+        buttonBack = findViewById(R.id.buttonBack);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveRecipeToFirebase();
+            }
+        });
+
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AddRecipeActivity.this, HomePageActivity.class));
+                finish();
             }
         });
     }
@@ -54,6 +64,8 @@ public class AddRecipeActivity extends AppCompatActivity {
         List<String> ingredients = Arrays.asList(editTextIngredients.getText().toString().trim().split(","));
         String imageUrl = editTextImageUrl.getText().toString().trim();
         double calories = Double.parseDouble(editTextCalories.getText().toString().trim());
+        String description = editTextDescription.getText().toString().trim();
+
         Map<String, Double> nutritionalValues = new HashMap<>();
         nutritionalValues.put("fats", Double.parseDouble(editTextFats.getText().toString().trim()));
         nutritionalValues.put("saturatedFats", Double.parseDouble(editTextSaturatedFats.getText().toString().trim()));
@@ -64,7 +76,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         nutritionalValues.put("sugar", Double.parseDouble(editTextSugar.getText().toString().trim()));
         nutritionalValues.put("salt", Double.parseDouble(editTextSalt.getText().toString().trim()));
 
-        Recipe recipe = new Recipe(recipeName, imageUrl, calories, ingredients, nutritionalValues);
+        Recipe recipe = new Recipe(recipeName, imageUrl, calories, ingredients, nutritionalValues, description);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("recipes");
         databaseReference.push().setValue(recipe).addOnCompleteListener(task -> {
@@ -76,5 +88,4 @@ public class AddRecipeActivity extends AppCompatActivity {
             }
         });
     }
-
 }
