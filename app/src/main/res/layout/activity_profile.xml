@@ -141,12 +141,30 @@
             android:layout_marginTop="8dp" />
 
         <TextView
+            android:id="@+id/userSexLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sex"
+            app:layout_constraintTop_toBottomOf="@id/editUserGoal"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <Spinner
+            android:id="@+id/editUserSex"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/userSexLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <TextView
             android:id="@+id/userReportMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Completati datele profilului pentru a obtine un raport al utilizatorului"
             android:textColor="@android:color/holo_red_light"
-            app:layout_constraintTop_toBottomOf="@id/editUserGoal"
+            app:layout_constraintTop_toBottomOf="@id/editUserSex"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:visibility="gone" />
@@ -177,6 +195,16 @@
             android:layout_height="wrap_content"
             android:text="SALVEAZĂ PROFIL"
             app:layout_constraintTop_toBottomOf="@id/userCalories"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/generateMealPlanButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GENEREAZĂ PLAN ALIMENTAR"
+            app:layout_constraintTop_toBottomOf="@id/saveProfileButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp" />

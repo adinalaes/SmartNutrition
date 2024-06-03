@@ -9,4 +9,9 @@
         <item>Menținere în greutate</item>
         <item>Creștere în greutate</item>
     </string-array>
+
+    <string-array name="user_sex">
+        <item>Masculin</item>
+        <item>Feminin</item>
+    </string-array>
 </resources>

@@ -63,6 +63,9 @@ public class AddRecipeActivity extends AppCompatActivity {
         String recipeName = editTextRecipeName.getText().toString().trim();
         List<String> ingredients = Arrays.asList(editTextIngredients.getText().toString().trim().split(","));
         String imageUrl = editTextImageUrl.getText().toString().trim();
+        if (imageUrl.isEmpty()) {
+            imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdK9HIraJG9yY1lNo2KWICOshaKOMOq8qlrw&s";
+        }
         double calories = Double.parseDouble(editTextCalories.getText().toString().trim());
         String description = editTextDescription.getText().toString().trim();
 

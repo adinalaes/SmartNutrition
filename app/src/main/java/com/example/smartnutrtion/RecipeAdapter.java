@@ -16,9 +16,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     private List<Recipe> recipes;
     private Context context;
 
-    public RecipeAdapter(){
-
+    public RecipeAdapter() {
     }
+
     public RecipeAdapter(Context context, List<Recipe> recipes) {
         this.context = context;
         this.recipes = recipes;
@@ -55,6 +55,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return recipes.size();
+    }
+
+    public void updateList(List<Recipe> newRecipes) {
+        recipes = newRecipes;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

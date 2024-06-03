@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <RadioGroup
+        android:id="@+id/caloriesRadioGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <RadioButton
+            android:id="@+id/caloriesUnder200"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sub 200 kCal" />
+
+        <RadioButton
+            android:id="@+id/calories200to400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="200 - 400 kCal" />
+
+        <RadioButton
+            android:id="@+id/calories400to600"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="400 - 600 kCal" />
+
+        <RadioButton
+            android:id="@+id/calories600to800"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="600 - 800 kCal" />
+
+        <RadioButton
+            android:id="@+id/caloriesOver800"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="peste 800 kCal" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/macronutrientsRadioGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/caloriesRadioGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+
+        <RadioButton
+            android:id="@+id/proteic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Proteice (peste 30% proteine)" />
+
+        <RadioButton
+            android:id="@+id/lowCarb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Low Carb (sub 20% carbohidrați)" />
+
+        <RadioButton
+            android:id="@+id/lowFat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Low Fat (sub 20% grăsimi)" />
+
+        <RadioButton
+            android:id="@+id/keto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keto (peste 70% grăsimi)" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/applyFiltersButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aplică filtre"
+        app:layout_constraintTop_toBottomOf="@id/macronutrientsRadioGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
