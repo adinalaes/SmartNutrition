@@ -1,6 +1,7 @@
 package com.example.smartnutrtion;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,7 +12,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,11 +22,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -34,7 +35,6 @@ public class ProfileActivity extends AppCompatActivity {
     private EditText editUserAge;
     private EditText editUserWeight;
     private EditText editUserHeight;
-    private Spinner editUserGoal;
     private Spinner editUserSex;
     private Button saveProfileButton;
     private Button backToHomeButton;
@@ -42,8 +42,8 @@ public class ProfileActivity extends AppCompatActivity {
     private Button generateMealPlanButton;
     private ImageView profileImage;
     private TextView userReportMessage;
-    private TextView userBMI;
-    private TextView userCalories;
+    protected TextView userBMI;
+    protected TextView userCalories;
 
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
@@ -59,7 +59,6 @@ public class ProfileActivity extends AppCompatActivity {
         editUserAge = findViewById(R.id.editUserAge);
         editUserWeight = findViewById(R.id.editUserWeight);
         editUserHeight = findViewById(R.id.editUserHeight);
-        editUserGoal = findViewById(R.id.editUserGoal);
         editUserSex = findViewById(R.id.editUserSex);
         saveProfileButton = findViewById(R.id.saveProfileButton);
         backToHomeButton = findViewById(R.id.backToHomeButton);
@@ -72,11 +71,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        ArrayAdapter<CharSequence> goalAdapter = ArrayAdapter.createFromResource(this,
-                R.array.user_goals, android.R.layout.simple_spinner_item);
-        goalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        editUserGoal.setAdapter(goalAdapter);
 
         ArrayAdapter<CharSequence> sexAdapter = ArrayAdapter.createFromResource(this,
                 R.array.user_sex, android.R.layout.simple_spinner_item);
@@ -97,7 +91,7 @@ public class ProfileActivity extends AppCompatActivity {
         loadRecipesFromDatabase();
     }
 
-    private void loadUserProfile() {
+    public void loadUserProfile() {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -106,18 +100,12 @@ public class ProfileActivity extends AppCompatActivity {
                     Long age = dataSnapshot.child("age").getValue(Long.class);
                     Long weight = dataSnapshot.child("weight").getValue(Long.class);
                     Long height = dataSnapshot.child("height").getValue(Long.class);
-                    String goal = dataSnapshot.child("goal").getValue(String.class);
                     String sex = dataSnapshot.child("sex").getValue(String.class);
 
                     if (name != null) editUserName.setText(name);
                     if (age != null) editUserAge.setText(String.valueOf(age));
                     if (weight != null) editUserWeight.setText(String.valueOf(weight));
                     if (height != null) editUserHeight.setText(String.valueOf(height));
-                    if (goal != null) {
-                        ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) editUserGoal.getAdapter();
-                        int position = adapter.getPosition(goal);
-                        editUserGoal.setSelection(position);
-                    }
                     if (sex != null) {
                         ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) editUserSex.getAdapter();
                         int position = adapter.getPosition(sex);
@@ -149,12 +137,11 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void saveUserProfile() {
+    public void saveUserProfile() {
         String name = editUserName.getText().toString().trim();
         String ageStr = editUserAge.getText().toString().trim();
         String weightStr = editUserWeight.getText().toString().trim();
         String heightStr = editUserHeight.getText().toString().trim();
-        String goal = editUserGoal.getSelectedItem().toString();
         String sex = editUserSex.getSelectedItem().toString();
 
         if (name.isEmpty() || ageStr.isEmpty() || weightStr.isEmpty() || heightStr.isEmpty() || sex.isEmpty()) {
@@ -171,7 +158,6 @@ public class ProfileActivity extends AppCompatActivity {
         userProfile.put("age", age);
         userProfile.put("weight", weight);
         userProfile.put("height", height);
-        userProfile.put("goal", goal);
         userProfile.put("sex", sex);
 
         databaseReference.updateChildren(userProfile).addOnCompleteListener(task -> {
@@ -193,35 +179,38 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-
-
-    private void calculateAndDisplayUserReport(Long age, Long weight, Long height, String sex) {
+    public void calculateAndDisplayUserReport(Long age, Long weight, Long height, String sex) {
         double bmi = weight / Math.pow(height / 100.0, 2);
         int dailyCalories = calculateDailyCalories(age, weight, height, sex);
 
         userBMI.setText(String.format("BMI: %.2f", bmi));
         userCalories.setText(String.format("Calorii necesare pe zi: %d", dailyCalories));
 
+        SharedPreferences preferences = getSharedPreferences("userPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("dailyCaloricNeed", dailyCalories);
+        editor.apply();
+
         userBMI.setVisibility(View.VISIBLE);
         userCalories.setVisibility(View.VISIBLE);
     }
 
-    private int calculateDailyCalories(Long age, Long weight, Long height, String sex) {
+    public int calculateDailyCalories(Long age, Long weight, Long height, String sex) {
         if (sex == null) {
             return 0;
         }
 
-            // Basic estimation using Mifflin-St Jeor Equation
+        //Mifflin-St Jeor
         if (sex.equals("Masculin")) {
-            return (int) (10 * weight + 6.25 * height - 5 * age + 5); // for males
+            return (int) (10 * weight + 6.25 * height - 5 * age + 5);
         } else if (sex.equals("Feminin")) {
-            return (int) (10 * weight + 6.25 * height - 5 * age - 161); // for females
+            return (int) (10 * weight + 6.25 * height - 5 * age - 161);
         } else {
             return 0;
         }
     }
 
-    private void loadRecipesFromDatabase() {
+    public void loadRecipesFromDatabase() {
         DatabaseReference recipesRef = FirebaseDatabase.getInstance().getReference("recipes");
         recipesRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -241,43 +230,10 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void generateMealPlan() {
-        List<Recipe> mealPlan = getRandomMealPlan();
-        showMealPlanDialog(mealPlan);
-    }
-
-    private List<Recipe> getRandomMealPlan() {
-        List<Recipe> mealPlan = new ArrayList<>();
-        Random random = new Random();
-        int numOfMeals = random.nextInt(3) + 3; // 3 to 5 meals
-
-        for (int i = 0; i < numOfMeals; i++) {
-            int randomIndex = random.nextInt(recipeList.size());
-            mealPlan.add(recipeList.get(randomIndex));
-        }
-
-        return mealPlan;
-    }
-
-    private void showMealPlanDialog(List<Recipe> mealPlan) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Plan Alimentar");
-
-        StringBuilder mealPlanText = new StringBuilder();
-        for (Recipe recipe : mealPlan) {
-            mealPlanText.append(recipe.getName()).append(" - ").append(recipe.getCalories()).append(" kCal\n");
-        }
-
-        builder.setMessage(mealPlanText.toString());
-
-        builder.setPositiveButton("Regenerează", (dialog, which) -> {
-            List<Recipe> newMealPlan = getRandomMealPlan();
-            showMealPlanDialog(newMealPlan);
-        });
-
-        builder.setNegativeButton("Închide", (dialog, which) -> dialog.dismiss());
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        Intent intent = new Intent(ProfileActivity.this, MealPlanActivity.class);
+        intent.putExtra("recipeList", (Serializable) recipeList);
+        intent.putExtra("dailyCalories", Integer.parseInt(userCalories.getText().toString().replaceAll("[^0-9]", "")));
+        startActivity(intent);
     }
 
     private void logoutUser() {

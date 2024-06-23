@@ -53,6 +53,12 @@ public class HomePageActivity extends AppCompatActivity {
         recyclerView.setAdapter(recipeAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
+        recipeAdapter.setOnItemClickListener(recipe -> {
+            Intent intent = new Intent(HomePageActivity.this, RecipeDetailActivity.class);
+            intent.putExtra("recipe", recipe);
+            startActivity(intent);
+        });
+
         filterButton.setOnClickListener(v -> showFilterDialog());
         addRecipeButton.setOnClickListener(v -> {
             Intent intent = new Intent(HomePageActivity.this, AddRecipeActivity.class);
@@ -101,14 +107,14 @@ public class HomePageActivity extends AppCompatActivity {
         searchView.setBackgroundResource(R.drawable.search_view_background);
     }
 
-    private void filterRecipesByName(String query) {
+    public void filterRecipesByName(String query) {
         List<Recipe> filteredList = recipeList.stream()
                 .filter(recipe -> recipe.getName().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
         recipeAdapter.updateList(filteredList);
     }
 
-    private void showFilterDialog() {
+    public void showFilterDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Filtrează rețetele");
 
@@ -141,44 +147,44 @@ public class HomePageActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void applyFilters(boolean[] checkedItems) {
+    public void applyFilters(boolean[] checkedItems) {
         List<Recipe> filteredList = new ArrayList<>(recipeList);
 
-        if (checkedItems[1]) { // sub 200 kCal
+        if (checkedItems[1]) {
             filteredList = filteredList.stream()
                     .filter(recipe -> recipe.getCalories() < 200)
                     .collect(Collectors.toList());
-        } else if (checkedItems[2]) { // 200 - 400 kCal
+        } else if (checkedItems[2]) {
             filteredList = filteredList.stream()
                     .filter(recipe -> recipe.getCalories() >= 200 && recipe.getCalories() < 400)
                     .collect(Collectors.toList());
-        } else if (checkedItems[3]) { // 400 - 600 kCal
+        } else if (checkedItems[3]) {
             filteredList = filteredList.stream()
                     .filter(recipe -> recipe.getCalories() >= 400 && recipe.getCalories() < 600)
                     .collect(Collectors.toList());
-        } else if (checkedItems[4]) { // 600 - 800 kCal
+        } else if (checkedItems[4]) {
             filteredList = filteredList.stream()
                     .filter(recipe -> recipe.getCalories() >= 600 && recipe.getCalories() < 800)
                     .collect(Collectors.toList());
-        } else if (checkedItems[5]) { // peste 800 kCal
+        } else if (checkedItems[5]) {
             filteredList = filteredList.stream()
                     .filter(recipe -> recipe.getCalories() >= 800)
                     .collect(Collectors.toList());
         }
 
-        if (checkedItems[6]) { // Proteice (peste 30% proteine)
+        if (checkedItems[6]) {
             filteredList = filteredList.stream()
                     .filter(recipe -> (recipe.getNutritionalValues().get("protein") / (recipe.getCalories() * 4)) > 0.3)
                     .collect(Collectors.toList());
-        } else if (checkedItems[7]) { // Low Carb (sub 20% carbohidrati)
+        } else if (checkedItems[7]) {
             filteredList = filteredList.stream()
                     .filter(recipe -> (recipe.getNutritionalValues().get("carbohydrates") / (recipe.getCalories() * 4)) < 0.2)
                     .collect(Collectors.toList());
-        } else if (checkedItems[8]) { // Low Fat (sub 20% grasimi)
+        } else if (checkedItems[8]) {
             filteredList = filteredList.stream()
                     .filter(recipe -> (recipe.getNutritionalValues().get("fats") / (recipe.getCalories() * 9)) < 0.2)
                     .collect(Collectors.toList());
-        } else if (checkedItems[9]) { // Keto (peste 70% grasimi)
+        } else if (checkedItems[9]) {
             filteredList = filteredList.stream()
                     .filter(recipe -> (recipe.getNutritionalValues().get("fats") / (recipe.getCalories() * 9)) > 0.7)
                     .collect(Collectors.toList());
@@ -200,8 +206,13 @@ public class HomePageActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_profile) {
+        int id = item.getItemId();
+        if (id == R.id.action_profile) {
             Intent intent = new Intent(HomePageActivity.this, ProfileActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.action_journal) {
+            Intent intent = new Intent(HomePageActivity.this, JournalActivity.class);
             startActivity(intent);
             return true;
         }

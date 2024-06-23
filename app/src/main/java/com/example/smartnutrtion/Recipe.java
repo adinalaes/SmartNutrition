@@ -12,16 +12,19 @@ public class Recipe implements Serializable {
     private Map<String, Double> nutritionalValues;
     private String description;
 
+    private double portionSize;
+
     public Recipe() {
     }
 
-    public Recipe(String name, String imageUrl, double calories, List<String> ingredients, Map<String, Double> nutritionalValues, String description) {
+    public Recipe(String name, String imageUrl, double calories, List<String> ingredients, Map<String, Double> nutritionalValues, String description, double portionSize) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.calories = calories;
         this.ingredients = ingredients;
         this.nutritionalValues = nutritionalValues;
         this.description = description;
+        this.portionSize = portionSize;
     }
 
     public String getName() {
@@ -48,6 +51,10 @@ public class Recipe implements Serializable {
         return description;
     }
 
+    public double getPortionSize() {
+        return portionSize;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -70,5 +77,9 @@ public class Recipe implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setPortionSize(double portionSize) {
+        this.portionSize = portionSize;
     }
 }

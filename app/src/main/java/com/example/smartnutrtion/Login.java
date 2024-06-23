@@ -18,7 +18,6 @@ public class Login extends Activity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton;
-
     private TextView signUpButton;
     private FirebaseAuth mAuth;
 
@@ -49,20 +48,6 @@ public class Login extends Activity {
 
     private void loginUser(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        updateUI(user);
-                    } else {
-                        Toast.makeText(Login.this, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show();
-                        updateUI(null);
-                    }
-                });
-    }
-
-    private void createUser(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();

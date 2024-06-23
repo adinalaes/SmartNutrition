@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="#F7F7F7">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,7 +26,7 @@
         <ImageView
             android:id="@+id/recipeImage"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="240dp"
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,11 +38,12 @@
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:padding="8dp"
+            android:padding="4dp"
             android:textColor="#000"
             app:layout_constraintTop_toBottomOf="@id/recipeImage"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
 
         <TextView
             android:id="@+id/ingredientsLabel"
@@ -50,19 +52,21 @@
             android:text="Ingrediente:"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:paddingTop="16dp"
+            android:paddingTop="4dp"
             app:layout_constraintTop_toBottomOf="@id/recipeName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
 
         <TextView
             android:id="@+id/ingredientsList"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:padding="4dp"
             app:layout_constraintTop_toBottomOf="@id/ingredientsLabel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
 
         <TextView
             android:id="@+id/descriptionLabel"
@@ -71,19 +75,31 @@
             android:text="Descriere:"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:paddingTop="16dp"
+            android:paddingTop="4dp"
             app:layout_constraintTop_toBottomOf="@id/ingredientsList"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
 
         <TextView
             android:id="@+id/descriptionText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:padding="4dp"
             app:layout_constraintTop_toBottomOf="@id/descriptionLabel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/portionSizeText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            app:layout_constraintTop_toBottomOf="@id/descriptionText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
 
         <TextView
             android:id="@+id/caloriesLabel"
@@ -91,26 +107,28 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:paddingTop="16dp"
+            android:paddingTop="4dp"
             android:text="Valori nutriționale per 100g:"
-            app:layout_constraintTop_toBottomOf="@id/descriptionText"
+            app:layout_constraintTop_toBottomOf="@id/portionSizeText"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
 
         <TextView
             android:id="@+id/caloriesValueHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:padding="4dp"
             app:layout_constraintTop_toBottomOf="@id/caloriesLabel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
 
         <TableLayout
             android:id="@+id/nutritionalTable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:stretchColumns="*"
             android:divider="?android:attr/listDivider"
             android:showDividers="middle|beginning|end"
@@ -118,33 +136,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <TableRow>
-                <TextView android:text="Carbohidrați:" android:padding="8dp" android:layout_weight="1"/>
-                <TextView android:id="@+id/carbsValue" android:padding="8dp" android:layout_weight="1"/>
+            <TableRow android:background="#DDDDDD">
+                <TextView android:text="Carbohidrați:" android:padding="4dp" android:layout_weight="1" android:gravity="center" android:background="#FFFFFF"/>
+                <TextView android:id="@+id/carbsValue" android:padding="4dp" android:layout_weight="1" android:gravity="center" android:background="#FFFFFF"/>
             </TableRow>
-            <TableRow>
-                <TextView android:text="Fibre:" android:padding="8dp" android:layout_weight="1"/>
-                <TextView android:id="@+id/fiberValue" android:padding="8dp" android:layout_weight="1"/>
+            <TableRow android:background="#DDDDDD">
+                <TextView android:text="Fibre:" android:padding="4dp" android:layout_weight="1" android:gravity="center" android:background="#FFFFFF"/>
+                <TextView android:id="@+id/fiberValue" android:padding="4dp" android:layout_weight="1" android:gravity="center" android:background="#FFFFFF"/>
             </TableRow>
-            <TableRow>
-                <TextView android:text="Proteine:" android:padding="8dp" android:layout_weight="1"/>
-                <TextView android:id="@+id/proteinValue" android:padding="8dp" android:layout_weight="1"/>
+            <TableRow android:background="#DDDDDD">
+                <TextView android:text="Proteine:" android:padding="4dp" android:layout_weight="1" android:gravity="center" android:background="#FFFFFF"/>
+                <TextView android:id="@+id/proteinValue" android:padding="4dp" android:layout_weight="1" android:gravity="center" android:background="#FFFFFF"/>
             </TableRow>
-            <TableRow>
-                <TextView android:text="Grăsimi saturate:" android:padding="8dp" android:layout_weight="1"/>
-                <TextView android:id="@+id/saturatedFatsValue" android:padding="8dp" android:layout_weight="1"/>
+            <TableRow android:background="#DDDDDD">
+                <TextView android:text="Grăsimi saturate:" android:padding="4dp" android:layout_weight="1" android:gravity="center" android:background="#FFFFFF"/>
+                <TextView android:id="@+id/saturatedFatsValue" android:padding="4dp" android:layout_weight="1" android:gravity="center" android:background="#FFFFFF"/>
             </TableRow>
-            <TableRow>
-                <TextView android:text="Grăsimi nesaturate:" android:padding="8dp" android:layout_weight="1"/>
-                <TextView android:id="@+id/unsaturatedFatsValue" android:padding="8dp" android:layout_weight="1"/>
+            <TableRow android:background="#DDDDDD">
+                <TextView android:text="Grăsimi nesaturate:" android:padding="4dp" android:layout_weight="1" android:gravity="center" android:background="#FFFFFF"/>
+                <TextView android:id="@+id/unsaturatedFatsValue" android:padding="4dp" android:layout_weight="1" android:gravity="center" android:background="#FFFFFF"/>
             </TableRow>
-            <TableRow>
-                <TextView android:text="Zahăr:" android:padding="8dp" android:layout_weight="1"/>
-                <TextView android:id="@+id/sugarValue" android:padding="8dp" android:layout_weight="1"/>
+            <TableRow android:background="#DDDDDD">
+                <TextView android:text="Zahăr:" android:padding="4dp" android:layout_weight="1" android:gravity="center" android:background="#FFFFFF"/>
+                <TextView android:id="@+id/sugarValue" android:padding="4dp" android:layout_weight="1" android:gravity="center" android:background="#FFFFFF"/>
             </TableRow>
-            <TableRow>
-                <TextView android:text="Sare:" android:padding="8dp" androidlayout_weight="1"/>
-                <TextView android:id="@+id/saltValue" android:padding="8dp" android:layout_weight="1"/>
+            <TableRow android:background="#DDDDDD">
+                <TextView android:text="Sare:" android:padding="4dp" android:layout_weight="1" android:gravity="center" android:background="#FFFFFF"/>
+                <TextView android:id="@+id/saltValue" android:padding="4dp" android:layout_weight="1" android:gravity="center" android:background="#FFFFFF"/>
             </TableRow>
         </TableLayout>
 

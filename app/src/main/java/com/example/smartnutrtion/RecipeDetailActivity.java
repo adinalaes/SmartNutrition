@@ -24,6 +24,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         TextView recipeName = findViewById(R.id.recipeName);
         TextView ingredientsList = findViewById(R.id.ingredientsList);
         TextView descriptionText = findViewById(R.id.descriptionText);
+        TextView portionSizeText = findViewById(R.id.portionSizeText); // Nou
         TextView caloriesLabel = findViewById(R.id.caloriesLabel);
         TextView caloriesValueHeader = findViewById(R.id.caloriesValueHeader);
         TextView carbsValue = findViewById(R.id.carbsValue);
@@ -58,6 +59,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
         sugarValue.setText(String.format(Locale.getDefault(), "%.2f g", recipe.getNutritionalValues().get("sugar")));
         saltValue.setText(String.format(Locale.getDefault(), "%.2f g", recipe.getNutritionalValues().get("salt")));
         descriptionText.setText(recipe.getDescription());
+
+        String portionSizeTextString = String.format(Locale.getDefault(), "Gramaj pe porție: %.2f g", recipe.getPortionSize());
+        portionSizeText.setText(portionSizeTextString);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

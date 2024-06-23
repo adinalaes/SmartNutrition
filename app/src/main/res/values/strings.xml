@@ -3,6 +3,7 @@
     <string name="profile_icon">Iconița profil</string>
     <string name="user_name">Nume Utilizator</string>
     <string name="profile">Profile</string>
+    <string name="journal">Jurnal</string>
 
     <string-array name="user_goals">
         <item>Scădere în greutate</item>
@@ -14,4 +15,7 @@
         <item>Masculin</item>
         <item>Feminin</item>
     </string-array>
+
+    <string name="recipe_image">Recipe Image</string>
+
 </resources>

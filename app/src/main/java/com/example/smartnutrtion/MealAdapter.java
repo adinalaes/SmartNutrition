@@ -1,7 +1,6 @@
 package com.example.smartnutrtion;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,20 +8,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
-    private List<Recipe> recipes;
+public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
+
     private Context context;
-    private OnItemClickListener onItemClickListener;
+    private List<Recipe> mealList;
 
-    public RecipeAdapter() {
-    }
-
-    public RecipeAdapter(Context context, List<Recipe> recipes) {
+    public MealAdapter(Context context, List<Recipe> mealList) {
         this.context = context;
-        this.recipes = recipes;
+        this.mealList = (mealList != null) ? mealList : new ArrayList<>();
     }
 
     @Override
@@ -33,40 +31,21 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Recipe recipe = recipes.get(position);
-        holder.nameTextView.setText(recipe.getName());
-        holder.caloriesTextView.setText(String.format(Locale.getDefault(), "%.2f Kcal", recipe.getCalories()));
+        Recipe meal = mealList.get(position);
+        holder.nameTextView.setText(meal.getName());
+        holder.caloriesTextView.setText(String.format(Locale.getDefault(), "%.2f Kcal", meal.getCalories() * meal.getPortionSize() / 100));
 
-        String imageUrl = recipe.getImageUrl();
+        String imageUrl = meal.getImageUrl();
         if (imageUrl != null && !imageUrl.isEmpty()) {
             Picasso.get().load(imageUrl).into(holder.imageView);
         } else {
             holder.imageView.setImageResource(R.drawable.default_image);
         }
-
-        holder.itemView.setOnClickListener(view -> {
-            if (onItemClickListener != null) {
-                onItemClickListener.onItemClick(recipe);
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
-        return recipes.size();
-    }
-
-    public void updateList(List<Recipe> newRecipes) {
-        recipes = newRecipes;
-        notifyDataSetChanged();
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.onItemClickListener = listener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(Recipe recipe);
+        return mealList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

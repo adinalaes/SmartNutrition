@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class AddRecipeActivity extends AppCompatActivity {
 
-    private EditText editTextRecipeName, editTextIngredients, editTextImageUrl, editTextCalories, editTextFats, editTextSaturatedFats, editTextUnsaturatedFats, editTextCarbohydrates, editTextProtein, editTextFiber, editTextSugar, editTextSalt, editTextDescription;
+    private EditText editTextRecipeName, editTextIngredients, editTextImageUrl, editTextCalories, editTextFats, editTextSaturatedFats, editTextUnsaturatedFats, editTextCarbohydrates, editTextProtein, editTextFiber, editTextSugar, editTextSalt, editTextDescription, editTextPortionSize;
     private Button buttonSave, buttonBack;
 
     @Override
@@ -40,6 +40,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         editTextSugar = findViewById(R.id.editTextSugar);
         editTextSalt = findViewById(R.id.editTextSalt);
         editTextDescription = findViewById(R.id.editTextDescription);
+        editTextPortionSize = findViewById(R.id.editTextPortionSize);
         buttonSave = findViewById(R.id.buttonSave);
         buttonBack = findViewById(R.id.buttonBack);
 
@@ -59,27 +60,49 @@ public class AddRecipeActivity extends AppCompatActivity {
         });
     }
 
-    private void saveRecipeToFirebase() {
+    public void saveRecipeToFirebase() {
         String recipeName = editTextRecipeName.getText().toString().trim();
-        List<String> ingredients = Arrays.asList(editTextIngredients.getText().toString().trim().split(","));
+        String ingredientsText = editTextIngredients.getText().toString().trim();
         String imageUrl = editTextImageUrl.getText().toString().trim();
+        String caloriesText = editTextCalories.getText().toString().trim();
+        String portionSizeText = editTextPortionSize.getText().toString().trim();
+        String description = editTextDescription.getText().toString().trim();
+        String fatsText = editTextFats.getText().toString().trim();
+        String saturatedFatsText = editTextSaturatedFats.getText().toString().trim();
+        String unsaturatedFatsText = editTextUnsaturatedFats.getText().toString().trim();
+        String carbohydratesText = editTextCarbohydrates.getText().toString().trim();
+        String proteinText = editTextProtein.getText().toString().trim();
+        String fiberText = editTextFiber.getText().toString().trim();
+        String sugarText = editTextSugar.getText().toString().trim();
+        String saltText = editTextSalt.getText().toString().trim();
+
+        if (recipeName.isEmpty() || ingredientsText.isEmpty() || caloriesText.isEmpty() || portionSizeText.isEmpty() ||
+                description.isEmpty() || fatsText.isEmpty() || saturatedFatsText.isEmpty() ||
+                unsaturatedFatsText.isEmpty() || carbohydratesText.isEmpty() || proteinText.isEmpty() ||
+                fiberText.isEmpty() || sugarText.isEmpty() || saltText.isEmpty()) {
+            Toast.makeText(this, "Este necesară completarea câmpurilor obligatorii!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (imageUrl.isEmpty()) {
             imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdK9HIraJG9yY1lNo2KWICOshaKOMOq8qlrw&s";
         }
-        double calories = Double.parseDouble(editTextCalories.getText().toString().trim());
-        String description = editTextDescription.getText().toString().trim();
+
+        List<String> ingredients = Arrays.asList(ingredientsText.split(","));
+        double calories = Double.parseDouble(caloriesText);
+        double portionSize = Double.parseDouble(portionSizeText);
 
         Map<String, Double> nutritionalValues = new HashMap<>();
-        nutritionalValues.put("fats", Double.parseDouble(editTextFats.getText().toString().trim()));
-        nutritionalValues.put("saturatedFats", Double.parseDouble(editTextSaturatedFats.getText().toString().trim()));
-        nutritionalValues.put("unsaturatedFats", Double.parseDouble(editTextUnsaturatedFats.getText().toString().trim()));
-        nutritionalValues.put("carbohydrates", Double.parseDouble(editTextCarbohydrates.getText().toString().trim()));
-        nutritionalValues.put("protein", Double.parseDouble(editTextProtein.getText().toString().trim()));
-        nutritionalValues.put("fiber", Double.parseDouble(editTextFiber.getText().toString().trim()));
-        nutritionalValues.put("sugar", Double.parseDouble(editTextSugar.getText().toString().trim()));
-        nutritionalValues.put("salt", Double.parseDouble(editTextSalt.getText().toString().trim()));
+        nutritionalValues.put("fats", Double.parseDouble(fatsText));
+        nutritionalValues.put("saturatedFats", Double.parseDouble(saturatedFatsText));
+        nutritionalValues.put("unsaturatedFats", Double.parseDouble(unsaturatedFatsText));
+        nutritionalValues.put("carbohydrates", Double.parseDouble(carbohydratesText));
+        nutritionalValues.put("protein", Double.parseDouble(proteinText));
+        nutritionalValues.put("fiber", Double.parseDouble(fiberText));
+        nutritionalValues.put("sugar", Double.parseDouble(sugarText));
+        nutritionalValues.put("salt", Double.parseDouble(saltText));
 
-        Recipe recipe = new Recipe(recipeName, imageUrl, calories, ingredients, nutritionalValues, description);
+        Recipe recipe = new Recipe(recipeName, imageUrl, calories, ingredients, nutritionalValues, description, portionSize);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("recipes");
         databaseReference.push().setValue(recipe).addOnCompleteListener(task -> {
@@ -91,4 +114,5 @@ public class AddRecipeActivity extends AppCompatActivity {
             }
         });
     }
+
 }
